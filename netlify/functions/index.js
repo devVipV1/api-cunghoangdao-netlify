@@ -133,19 +133,43 @@ function careerMeaning(card, pos) {
 }
 
 // Cung hoàng đạo
+// ================= CUNG HOÀNG ĐẠO (BẢN FIX) =================
 function zodiac(dateStr) {
-    const [day, month] = dateStr.split("/").map(Number);
-    const ranges = [
-        ["Ma Kết", 1, 19], ["Bảo Bình", 2, 18],
-        ["Song Ngư", 3, 20], ["Bạch Dương", 4, 19],
-        ["Kim Ngưu", 5, 20], ["Song Tử", 6, 21],
-        ["Cự Giải", 7, 22], ["Sư Tử", 8, 22],
-        ["Xử Nữ", 9, 22], ["Thiên Bình", 10, 23],
-        ["Bọ Cạp", 11, 22], ["Nhân Mã", 12, 21],
-        ["Ma Kết", 12, 31]
+    let parts = dateStr.split("/");
+
+    // Nếu người dùng chỉ nhập dd/mm -> tự thêm năm 2000
+    if (parts.length === 2) {
+        parts.push("2000");
+    }
+
+    let [day, month] = parts.map(n => parseInt(n));
+
+    if (!day || !month) return "Không xác định";
+
+    const zodiacSigns = [
+        { sign: "Ma Kết", start: [22, 12], end: [19, 1] },
+        { sign: "Bảo Bình", start: [20, 1], end: [18, 2] },
+        { sign: "Song Ngư", start: [19, 2], end: [20, 3] },
+        { sign: "Bạch Dương", start: [21, 3], end: [19, 4] },
+        { sign: "Kim Ngưu", start: [20, 4], end: [20, 5] },
+        { sign: "Song Tử", start: [21, 5], end: [21, 6] },
+        { sign: "Cự Giải", start: [22, 6], end: [22, 7] },
+        { sign: "Sư Tử", start: [23, 7], end: [22, 8] },
+        { sign: "Xử Nữ", start: [23, 8], end: [22, 9] },
+        { sign: "Thiên Bình", start: [23, 9], end: [23, 10] },
+        { sign: "Bọ Cạp", start: [24, 10], end: [22, 11] },
+        { sign: "Nhân Mã", start: [23, 11], end: [21, 12] }
     ];
-    for (const [sign, m, d] of ranges)
-        if (month === m && day <= d) return sign;
+
+    for (let z of zodiacSigns) {
+        let [sd, sm] = z.start;
+        let [ed, em] = z.end;
+
+        if (
+            (month === sm && day >= sd) ||
+            (month === em && day <= ed)
+        ) return z.sign;
+    }
 
     return "Không xác định";
 }
