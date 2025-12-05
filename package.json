@@ -1,11 +1,10 @@
 {
-  "name": "api-boi-tinhduyen",
+  "name": "api-json-netlify",
   "version": "1.0.0",
-  "description": "Simple Netlify API for zodiac, tarot, love compatibility",
+  "description": "Pure JSON API (Netlify Functions)",
   "main": "index.js",
   "scripts": {
-    "build": "echo 'No build step'",
-    "start": "netlify dev"
+    "build": "echo no-build"
   },
   "license": "MIT"
 }
